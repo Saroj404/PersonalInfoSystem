@@ -1,0 +1,333 @@
+﻿@{
+	ViewBag.Title = "Home Page";
+}
+
+<html>
+
+<head>
+
+
+	@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">*@
+	
+
+	@*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>*@
+
+
+
+	<script>
+			$(document).ready(function () {
+
+
+				$("#dialogbox").dialog({
+					autoOpen: false,
+				});
+
+
+			});
+	</script>
+	<style type="text/css">
+		.btn-success {
+			padding: 15px 25px;
+			font-size: 24px;
+			text-align: center;
+			cursor: pointer;
+			outline: none;
+			color: #fff;
+			background-color: #04AA6D;
+			border: none;
+			border-radius: 15px;
+			box-shadow: 0 9px #999;
+		}
+
+			.btn-success:hover {
+				background-color: #3e8e41
+			}
+
+			.btn-success:active {
+				background-color: #3e8e41;
+				box-shadow: 0 5px #666;
+				transform: translateY(4px);
+			}
+
+		.btn-info {
+			padding: 15px 25px;
+			font-size: 24px;
+			text-align: center;
+			cursor: pointer;
+			outline: none;
+			color: #fff;
+			background-color: dodgerblue;
+			border: none;
+			border-radius: 15px;
+			box-shadow: 0 9px #999;
+		}
+
+			.btn-info:hover {
+				background-color: royalblue
+			}
+
+			.btn-info:active {
+				background-color: #3e8e41;
+				box-shadow: 0 5px #666;
+				transform: translateY(4px);
+			}
+
+		.btn-danger {
+			padding: 15px 25px;
+			font-size: 24px;
+			text-align: center;
+			cursor: pointer;
+			outline: none;
+			color: #fff;
+			background-color: red;
+			border: none;
+			border-radius: 15px;
+			box-shadow: 0 9px #999;
+		}
+
+			.btn-danger:hover {
+				background-color: darkred
+			}
+
+			.btn-danger:active {
+				background-color: #3e8e41;
+				box-shadow: 0 5px #666;
+				transform: translateY(4px);
+			}
+
+		.btn-warning {
+			margin-left: 970px;
+			padding: 15px 25px;
+			font-size: 24px;
+			text-align: center;
+			cursor: pointer;
+			outline: none;
+			color: #fff;
+			background-color: orange;
+			border: none;
+			border-radius: 15px;
+			box-shadow: 0 9px #999;
+		}
+
+			.btn-warning:hover {
+				background-color: darkorange
+			}
+
+			.btn-warning:active {
+				background-color: #3e8e41;
+				box-shadow: 0 5px #666;
+				transform: translateY(4px);
+			}
+
+		.fas:hover {
+			color: blue;
+		}
+
+
+		.btn-edit {
+			background-color: orange;
+			border: none;
+			color: white;
+			text-decoration: none;
+			cursor: pointer;
+			width: 50%;
+			float: left;
+		}
+
+		.btn-delete {
+			background-color: red;
+			border: none;
+			color: white;
+			text-decoration: none;
+			cursor: pointer;
+			width: 50%;
+			float: right;
+			display: inline;
+		}
+	</style>
+</head>
+
+<body>
+	<div style="padding-top: 50px;">
+		<div id="tabs">
+			<button type="button" id="addbtn" data-bind="event: {click: $root.Add},enable:$root.enableadd"
+					class="btn btn-success">
+				<i class="fas fa-user-plus"></i>Add New
+			</button>
+			<button type="button" id="submistbtn" data-bind="event: {click: $root.Clear},enable:$root.enableclear"
+					class="btn btn-danger">
+				<i class="fas fa-backspace"></i>Cancel
+			</button>
+			<button type="button" id="submitbtn" data-bind="event: {click: $root.Submit},enable:$root.enablesub"
+					class="btn btn-info">
+				<i class="fas fa-upload"></i>Save
+
+			</button>
+			<ul>
+				<li><a href="#tabs-1">Personal Information</a></li>
+				<li><a href="#tabs-2">Address</a></li>
+
+
+			</ul>
+			<div id="tabs-1" data-bind="with: MyModel">
+
+				<div class="container" style="padding-left: 10px; padding-top: 20px; padding-bottom: 40px; background-color: LightGreen;">
+					<h2 class="col-md-12" style="text-align: center; border: 1px solid; background-color: cyan;">Personal Detail Information</h2>
+
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="Province">Name</label>
+
+							<input type="text" data-bind="value: Name,enable:$root.enableDisable" class="form-control" id="name" placeholder="Enter your Name" name="name">
+							<h5 id="namecheck" style="color: red;"></h5>
+
+						</div>
+
+						<div class="form-group col-md-4">
+							<label for="Province">Salutation</label>
+							<select class="form-control" data-bind="
+									value: SalutationId,enable:$root.enableDisable,
+									options: $root.SalutationList,
+									optionsValue: 'Value',
+									event:{ change: $root.onChangeOfSalutation},
+									optionsText: 'Text',
+									optionsCaption: '---SELECT Salutation---'"
+									id="ddlSalutation">
+							</select>
+							<h5 id="dropchseck" style="color: red;"></h5>
+						</div>
+						<div class="form-group col-md-4">
+							<label>Age</label>
+							<input type="number" class="form-control" data-bind="value: Age,enable:$root.enableDisable" id="age" placeholder="Age" name="age">
+							<h5 id="agecheck" style="color: red;"></h5>
+						</div>
+						<div class="form-group col-md-10">
+							<label>Gender</label>
+							<input type="radio" id="male" name="Gender" data-bind="checked:SelectedGender ,enable:$root.enableDisableGender" value="Male">
+							<label style="font-weight: normal !important;">Male</label>
+							<input type="radio" id="female" value="Female" data-bind="checked:SelectedGender,enable:$root.enableDisableGender" name="Gender">
+							<label style="font-weight: normal !important;">Female</label>
+						</div>
+
+						<div class="form-group col-md-4">
+							<label>Email</label>
+							<input type="email" data-bind="value: Email,enable:$root.enableDisable" class="form-control" id="email" placeholder="Enter Email" name="email">
+							<h5 id="emailcheck" style="color: red;"></h5>
+						</div>
+						<div class="form-group col-md-4">
+							<label>Phone</label>
+							<input type="text" autocomplete="off" data-bind="value: Phone,enable:$root.enableDisable" class="form-control" id="phone" placeholder="Enter Phone no." name="phone">
+							<h5 id="phonecheck" style="color: red;"></h5>
+						</div>
+
+
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="pwd">Education</label>
+							<div class="col-sm-4">
+								<label class="checkbox-inline">
+									<input type="checkbox" class="check" value="SLC" id="SLC" name="Edu" data-bind="checked:edu,enable:$root.enableDisable ">SLC
+								</label>
+								<label class="checkbox-inline">
+									<input type="checkbox" class="check" value="+2" id="Two" name="Edu" data-bind="checked:edu,enable:$root.enableDisable ">+2
+								</label>
+								<label class="checkbox-inline">
+									<input type="checkbox" class="check" value="Bachelor" id="Bachelor" name="Edu" data-bind="checked:edu ,enable:$root.enableDisable">Bachelor
+								</label>
+								<label class="checkbox-inline">
+									<input type="checkbox" class="check" value="Master" id="Master" name="Edu" data-bind="checked:edu ,enable:$root.enableDisable">Master
+								</label>
+
+								<h5 id="check" style="color: red;"></h5>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="tabs-2" data-bind="with: MyAddress">
+				<button type="button" id="btnupdate" data-bind="event: {click: $root.UpdateInformation}
+					,enable:$root.canupdate" class="btn btn-warning">
+					<i class="fas fa-edit"></i>Update
+				</button>
+				<div style="width: 500px;" id="demoGrid"></div>
+
+
+				<div class="container" style="padding-left: 50px; padding-top: 20px; background-color: LightGreen;">
+					<form id="form4" name="form4">
+						<div class="form-row">
+							<h2 class="col-md-12" style="text-align: center; border: 1px solid; background-color: cyan;">Address</h2>
+
+							<div class="form-group col-md-4">
+								<label for="Ward">Address Type</label>
+								<select class="form-control" data-bind="
+									value: AddressId,enable:$root.enableDisable,
+									options: $root.AddressList,
+									optionsValue: 'Value',
+									optionsText: 'Text',
+									optionsCaption: '---Select your Address type---'"
+										id="AdId">
+								</select>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="Province">District</label>
+								<input type="text" class="form-control" data-bind="value: District,enable:$root.enableDisable" id="tDis" name="TempDist" placeholder="District">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="City">Ward No.</label>
+								<input type="text" class="form-control" data-bind="value: Ward,enable:$root.enableDisable" id="tward" name="TempWard" placeholder="Ward No.">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="CityCategory">Zone </label>
+								<input type="text" class="form-control" data-bind="value:Zone,enable:$root.enableDisable" id="tzone" name="Tempzone" placeholder="Zone">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="Ward">Tole</label>
+								<input type="text" class="form-control" data-bind="value:Tole,enable:$root.enableDisable" id="ttol" name="Temptole" placeholder="Tole">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="Ward">Province</label>
+								<select class="form-control" data-bind="
+									value:ProvId,enable:$root.enableDisable,
+									options: $root.ProvinceList,
+									optionsValue: 'Value',
+									optionsText: 'Text',
+									optionsCaption: '---Select your Province---'"
+										id="Temprov">
+								</select>
+							</div>
+
+
+						</div>
+					</form>
+
+				</div>
+
+
+
+			</div>
+
+
+
+
+		</div>
+
+
+
+
+		<div id="dialogbox" title="Error :(" style="background-color: red;font-weight: bold;color: white;font-size: 25px; ">
+			<div id="errorMessage">
+
+			</div>
+		</div>
+
+
+	</div>
+
+	
+</body>
+
+</html>
